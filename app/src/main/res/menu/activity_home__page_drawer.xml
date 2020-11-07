@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_nxtReview"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Next Review" />
+        <item
+            android:id="@+id/nav_viewMarks"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="View Marks" />
+        <item
+            android:id="@+id/nav_reqRes"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Request Resources" />
+        <item
+            android:id="@+id/nav_reqBud"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Request Budget" />
+        <item
+            android:id="@+id/nav_viewApp"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="View Approved" />
+    </group>
+
+
+
+</menu>
