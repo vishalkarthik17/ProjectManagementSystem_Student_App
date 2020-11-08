@@ -14,6 +14,7 @@ public class Select_Team extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select__team);
+        getSupportActionBar().setTitle("Select Team");
         proceed=findViewById(R.id.toHomeBtn);
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override

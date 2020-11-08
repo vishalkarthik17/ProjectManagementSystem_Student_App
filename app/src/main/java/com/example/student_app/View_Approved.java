@@ -13,6 +13,7 @@ public class View_Approved extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__approved);
+        getSupportActionBar().setTitle("View Approved Requests");
         bb=findViewById(R.id.backBtn);
         bb.setOnClickListener(new View.OnClickListener() {
             @Override

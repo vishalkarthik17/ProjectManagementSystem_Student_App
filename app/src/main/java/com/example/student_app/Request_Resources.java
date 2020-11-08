@@ -13,6 +13,8 @@ public class Request_Resources extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request__resources);
+        getSupportActionBar().setTitle("Request Resources");
+
         bb=findViewById(R.id.backBtn);
         bb.setOnClickListener(new View.OnClickListener() {
             @Override

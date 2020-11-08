@@ -14,8 +14,12 @@ public class Next_Review extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_next__review);
+
+        getSupportActionBar().setTitle("Next Review");
+
         bb=findViewById(R.id.backBtn);
         bb.setOnClickListener(new View.OnClickListener() {
             @Override

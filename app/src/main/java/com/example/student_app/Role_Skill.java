@@ -23,6 +23,8 @@ public class Role_Skill extends AppCompatActivity implements AdapterView.OnItemS
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_role__skill);
+        getSupportActionBar().setTitle("Enter Role");
+
         sp=findViewById(R.id.role);
 
         ArrayAdapter<CharSequence> adp = ArrayAdapter.createFromResource(this,R.array.role,android.R.layout.simple_spinner_item);
