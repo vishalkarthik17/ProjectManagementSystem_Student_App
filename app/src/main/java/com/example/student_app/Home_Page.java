@@ -1,5 +1,6 @@
 package com.example.student_app;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -81,20 +82,32 @@ public class Home_Page extends AppCompatActivity
         if (id == R.id.nav_home) {
             // Handle the camera action
         } else if (id == R.id.nav_nxtReview) {
+            Intent ToHome=new Intent(Home_Page.this,Next_Review.class);
+            startActivity(ToHome);
 
 
         } else if (id == R.id.nav_viewMarks) {
+            Intent ToNextReview=new Intent(Home_Page.this,Next_Review.class);
+            startActivity(ToNextReview);
 
         } else if (id == R.id.nav_reqRes) {
+            Intent ToRequestResources=new Intent(Home_Page.this,Request_Resources.class);
+            startActivity(ToRequestResources);
 
         } else if (id == R.id.nav_reqBud) {
+            Intent ToRequestBudget=new Intent(Home_Page.this,Request_Budget.class);
+            startActivity(ToRequestBudget);
 
         } else if (id == R.id.nav_viewApp) {
+            Intent ToViewApp=new Intent(Home_Page.this,View_Approved.class);
+            startActivity(ToViewApp);
 
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+
+
     }
 }
