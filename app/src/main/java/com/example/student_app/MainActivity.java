@@ -10,6 +10,7 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity {
 
     private Button Login_Button;
+    private Button br;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +23,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent loginToHome=new Intent(MainActivity.this,Home_Page.class);
                 startActivity(loginToHome);
+                finish();
+            }
+        });
+
+        br=findViewById(R.id.branch);
+        br.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent loginToHome=new Intent(MainActivity.this,Role_Skill.class);
+                startActivity(loginToHome);
+                finish();
             }
         });
     }
