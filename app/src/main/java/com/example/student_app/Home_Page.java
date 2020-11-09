@@ -6,14 +6,22 @@ import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -21,15 +29,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+import android.widget.TextView;
+
+import java.util.UUID;
 
 public class Home_Page extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private TextView namee;
+    private TextView stuid;
+    private TextView course;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home__page);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        FirebaseAuth mAuth=FirebaseAuth.getInstance();
+       // Log.e("Vishal",mAuth.getUid());
 
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -39,6 +56,25 @@ public class Home_Page extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+        namee=findViewById(R.id.home_name);
+        stuid=findViewById(R.id.home_studentid);
+        course=findViewById(R.id.home_course);
+        DatabaseReference abc= FirebaseDatabase.getInstance().getReference();
+        abc.child("Students").child(mAuth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                namee.setText(dataSnapshot.child("student_name").getValue().toString());
+                stuid.setText(dataSnapshot.child("student_id").getValue().toString());
+                course.setText(dataSnapshot.child("course").getValue().toString());
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+       // String a =UUID.randomUUID()+""+System.currentTimeMillis(); to generate unique ids
     }
 
     @Override

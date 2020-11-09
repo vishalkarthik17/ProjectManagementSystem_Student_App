@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button Login_Button;
     private Button br;
-    //private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
     private EditText userid,pword;
 
     @Override
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-      // mAuth = FirebaseAuth.getInstance();
+       mAuth = FirebaseAuth.getInstance();
 
         Login_Button= findViewById(R.id.loginBtn);
 
@@ -40,12 +41,27 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-               /* final String uids= userid.getText().toString().trim();
+               final String uids= userid.getText().toString().trim();
                 final String pws=pword.getText().toString().trim();
+                   if(TextUtils.isEmpty(uids)){
+                            userid.setError("Email is Required");
+                            return;
+                        }
+                        if(TextUtils.isEmpty(pws)){
+                            pword.setError("Password is Required");
+                            return;
+                        }
+                if(pws.length()<6){
+                    pword.setError("Password Length > =6");
+                    return;
+                }
                 mAuth.signInWithEmailAndPassword(uids,pws).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                      if(task.isSuccessful()&& uids!="" && pws!=""){
+
+
+
+                      if(task.isSuccessful()&& uids!="" && pws!="" && pws.length()>=6){
                           Intent loginToHome=new Intent(MainActivity.this,Home_Page.class);
                           startActivity(loginToHome);
                           finish();
@@ -56,11 +72,11 @@ public class MainActivity extends AppCompatActivity {
                           Toast.makeText(MainActivity.this, "Username/Password Dont Match!", Toast.LENGTH_SHORT).show();
                       }
                     }
-                });*/
+                });
 
-                Intent loginToHome=new Intent(MainActivity.this,Home_Page.class);
+               /* Intent loginToHome=new Intent(MainActivity.this,Home_Page.class);
                 startActivity(loginToHome);
-                finish();
+                finish();*/
 
 
 
