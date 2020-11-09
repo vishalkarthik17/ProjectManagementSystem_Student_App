@@ -30,7 +30,7 @@ public class Home_Page extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home__page);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        getSupportActionBar().setTitle("Home");
+
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
