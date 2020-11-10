@@ -15,6 +15,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-               final String uids= userid.getText().toString().trim();
+                Toast.makeText(MainActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
+                final String uids= userid.getText().toString().trim();
                 final String pws=pword.getText().toString().trim();
                    if(TextUtils.isEmpty(uids)){
                             userid.setError("Email is Required");
@@ -51,20 +57,54 @@ public class MainActivity extends AppCompatActivity {
                             pword.setError("Password is Required");
                             return;
                         }
-                if(pws.length()<6){
-                    pword.setError("Password Length > =6");
-                    return;
-                }
+
                 mAuth.signInWithEmailAndPassword(uids,pws).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
 
 
-                      if(task.isSuccessful()&& uids!="" && pws!="" && pws.length()>=6){
-                          Intent loginToHome=new Intent(MainActivity.this,Home_Page.class);
+                      if(task.isSuccessful()&& uids!="" && pws!="" ){
+
+
+                          Toast.makeText(MainActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
+                          DatabaseReference abc= FirebaseDatabase.getInstance().getReference();
+                          abc.child("Students").child(mAuth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                              @Override
+                              public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                  Toast.makeText(MainActivity.this, "Data Snap On Data Change", Toast.LENGTH_SHORT).show();
+                                  if((dataSnapshot.child("group_id").getValue().toString()).equals("NA"))
+                                  {
+                                      Toast.makeText(MainActivity.this, "Group not assigned", Toast.LENGTH_SHORT).show();
+                                      Intent loginToRole=new Intent(MainActivity.this,Role_Skill.class);
+                                      startActivity(loginToRole);
+                                      finish();
+                                  }
+                                  else
+                                  {
+                                      Toast.makeText(MainActivity.this, "group assigned", Toast.LENGTH_SHORT).show();
+                                      Intent loginToHome=new Intent(MainActivity.this,Home_Page.class);
+                                      startActivity(loginToHome);
+                                      finish();
+
+                                  }
+
+
+                              }
+
+                              @Override
+                              public void onCancelled(@NonNull DatabaseError databaseError) {
+                                  Toast.makeText(MainActivity.this, "Error da", Toast.LENGTH_SHORT).show();
+
+                              }
+                          });
+
+
+
+
+                          /*Intent loginToHome=new Intent(MainActivity.this,Home_Page.class);
                           startActivity(loginToHome);
-                          finish();
+                          finish();*/
 
                       }
                       else
@@ -83,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        br=findViewById(R.id.branch);
+       /* br=findViewById(R.id.branch);
         br.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,6 +131,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(loginToHome);
                 finish();
             }
-        });
+        });*/
     }
 }
