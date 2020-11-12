@@ -23,7 +23,7 @@ public class Role_Skill extends AppCompatActivity implements AdapterView.OnItemS
     private Button nxt;
     String choice="";
     private FirebaseAuth mAuth;
-    DatabaseReference abc;
+    private DatabaseReference abc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

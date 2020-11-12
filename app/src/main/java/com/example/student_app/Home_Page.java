@@ -40,12 +40,14 @@ public class Home_Page extends AppCompatActivity
     private TextView stuid;
     private TextView course;
 
+    private TextView gtitle,gmainarea,gsubarea,gfaculty;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home__page);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        FirebaseAuth mAuth=FirebaseAuth.getInstance();
+        final FirebaseAuth mAuth=FirebaseAuth.getInstance();
        // Log.e("Vishal",mAuth.getUid());
 
 
@@ -59,13 +61,30 @@ public class Home_Page extends AppCompatActivity
         namee=findViewById(R.id.home_name);
         stuid=findViewById(R.id.home_studentid);
         course=findViewById(R.id.home_course);
+
+        gtitle=findViewById(R.id.home_title);
+        gmainarea=findViewById(R.id.home_mainarea);
+        gsubarea=findViewById(R.id.home_subarea);
+        gfaculty=findViewById(R.id.home_facultyid);
+
         DatabaseReference abc= FirebaseDatabase.getInstance().getReference();
-        abc.child("Students").child(mAuth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        abc.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                namee.setText(dataSnapshot.child("student_name").getValue().toString());
-                stuid.setText(dataSnapshot.child("student_id").getValue().toString());
-                course.setText(dataSnapshot.child("course").getValue().toString());
+                namee.setText(dataSnapshot.child("Students").child(mAuth.getUid()).child("student_name").getValue().toString());
+                stuid.setText(dataSnapshot.child("Students").child(mAuth.getUid()).child("student_id").getValue().toString());
+                course.setText(dataSnapshot.child("Students").child(mAuth.getUid()).child("course").getValue().toString());
+
+
+                if( !((dataSnapshot.child("Students").child(mAuth.getUid()).child("group_id").getValue().toString()).equals("NA")) )
+                {
+                    String find=dataSnapshot.child("Students").child(mAuth.getUid()).child("group_id").getValue().toString();
+                    gtitle.setText(dataSnapshot.child("Groups").child(find).child("title").getValue().toString());
+                    gmainarea.setText(dataSnapshot.child("Groups").child(find).child("mainarea").getValue().toString());
+                    gsubarea.setText(dataSnapshot.child("Groups").child(find).child("subarea").getValue().toString());
+                    gfaculty.setText(dataSnapshot.child("Groups").child(find).child("facultyid").getValue().toString());
+
+                }
 
             }
 
@@ -74,6 +93,8 @@ public class Home_Page extends AppCompatActivity
 
             }
         });
+
+
        // String a =UUID.randomUUID()+""+System.currentTimeMillis(); to generate unique ids
     }
 

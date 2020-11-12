@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -27,69 +28,53 @@ import java.util.UUID;
 
 public class Select_Team extends AppCompatActivity {
 
-    private Button proceed;
+    private Button proceed, reselec;
     private ListView lv;
-    private TextView one[]=new TextView[3];
-    private ArrayList<String> keylist=new ArrayList<>();
-
-    ArrayList<String> al=new ArrayList<>();
-    DatabaseReference abc;
+    private TextView one[] = new TextView[3];
+    private ArrayList<String> keylist = new ArrayList<>();//contains uid of all users in the listview
+    private ArrayList<String> al = new ArrayList<>(); //arraylist linked to adapter
+    GroupClasss grp;
+    private DatabaseReference abc;
+    private DatabaseReference gg;
     FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select__team);
         getSupportActionBar().setTitle("Select Team");
-         mAuth=FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        one[0] = findViewById(R.id.spinner1); //TextBox Links
+        one[1] = findViewById(R.id.spinner2);
+        one[2] = findViewById(R.id.spinner3);
+        proceed = findViewById(R.id.toHomeBtn);
+        reselec=findViewById(R.id.reselect);
+        final ArrayAdapter<String> adp = new ArrayAdapter<String>(Select_Team.this, android.R.layout.simple_list_item_1, al);//List Adapter,with al set
+        abc = FirebaseDatabase.getInstance().getReference().child("Students");
+        gg = FirebaseDatabase.getInstance().getReference().child("Groups");
 
-         one[0]=findViewById(R.id.spinner1);
-        one[1]=findViewById(R.id.spinner2);
-        one[2]=findViewById(R.id.spinner3);
-
-        proceed=findViewById(R.id.toHomeBtn);
-        final ArrayAdapter<String> adp=new ArrayAdapter<String>(Select_Team.this,android.R.layout.simple_list_item_1,al);
-        abc= FirebaseDatabase.getInstance().getReference().child("Students");
-
-        lv=findViewById(R.id.studentlist);
-        lv.setAdapter(adp);
+        lv = findViewById(R.id.studentlist);
+        lv.setAdapter(adp); //set adapter to listview
         String summa;
-        final ArrayList<String> sal=new ArrayList<>();
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
 
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        final ArrayList<String> sal = new ArrayList<>(); //store the UID of selected item from the list
 
-                if(sal.size()<3)
-                {
-                    sal.add(keylist.get(position));
-                    one[sal.size()-1].setText(al.get(position));
-                    al.remove(position);
-                    adp.notifyDataSetChanged();
-
-                }
-                else
-                    Toast.makeText(Select_Team.this, "Max Users Added", Toast.LENGTH_SHORT).show();
-
-
-            }
-        });
-
+        //To display students with groupid NA in the list
         abc.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String toDisplay="";
-                for(DataSnapshot ds : dataSnapshot.getChildren()){
-                    toDisplay="";
-                    if(!ds.getKey().contains(mAuth.getUid()) && (ds.child("group_id").getValue().toString()).equals("NA")){
-                        toDisplay=ds.child("student_name").getValue().toString();
-                        toDisplay+="\n"+ds.child("student_id").getValue().toString();
+                String toDisplay = "";
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    toDisplay = "";
+                    if (!ds.getKey().contains(mAuth.getUid()) && (ds.child("group_id").getValue().toString()).equals("NA")) {
+                        toDisplay = ds.child("student_name").getValue().toString();
+                        toDisplay += "\n" + ds.child("student_id").getValue().toString();
+                        toDisplay +=" , Skills : "+ds.child("skill").getValue().toString();
                         al.add(toDisplay);
                         keylist.add(ds.getKey());
                         adp.notifyDataSetChanged();
                     }
-
-
                 }
             }
 
@@ -99,25 +84,65 @@ public class Select_Team extends AppCompatActivity {
             }
         });
 
+        //OnClick of List
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                if (sal.size() < 3) {
+                    sal.add(keylist.get(position));
+                    one[sal.size() - 1].setText(al.get(position));
+                    al.remove(position);
+                    adp.notifyDataSetChanged();
+
+                } else
+                    Toast.makeText(Select_Team.this, "Max Users Added", Toast.LENGTH_SHORT).show();
+
+
+            }
+        });
 
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(keylist.size()==3)
-                {
-                    String aaaa = UUID.randomUUID()+""+System.currentTimeMillis();
+                if (keylist.size() == 3) {
+                    String aaaa = UUID.randomUUID() + "" + System.currentTimeMillis();
                     abc.child(keylist.get(0)).child("group_id").setValue(aaaa);
-                   abc.child(keylist.get(1)).child("group_id").setValue(aaaa);
+                    abc.child(keylist.get(1)).child("group_id").setValue(aaaa);
                     abc.child(keylist.get(2)).child("group_id").setValue(aaaa);
                     abc.child(mAuth.getUid()).child("group_id").setValue(aaaa);
+                    grp=new GroupClasss();
+                    String gid=aaaa;
+                    String faculid="NA";
+                    String title="NA";
+                    String mainar="NA";
+                    String subar="NA";
+                    grp.setGroupid(gid);
+                    grp.setFacultyid(faculid);
+                    grp.setTitle(title);
+                    grp.setMainarea(mainar);
+                    grp.setSubarea(subar);
+                    gg.child(aaaa).setValue(grp);//Here is the problem
+                    Intent GoToHomeDa=new Intent(Select_Team.this,Home_Page.class);
+                    startActivity(GoToHomeDa);
 
-                }
-                else
-                {
+
+                } else {
                     Toast.makeText(Select_Team.this, "Not Sufficient Number of Users", Toast.LENGTH_SHORT).show();
                 }
 
 
+            }
+        });
+
+
+        //reselec.findViewById(R.id.reselect);
+        reselec.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent reload=new Intent(Select_Team.this,Select_Team.class);
+                startActivity(reload);
             }
         });
     }

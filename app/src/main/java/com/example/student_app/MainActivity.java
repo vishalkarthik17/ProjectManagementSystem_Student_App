@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button Login_Button;
     private Button br;
-    private FirebaseAuth mAuth;
+      FirebaseAuth mAuth;
     private EditText userid,pword;
 
     @Override
