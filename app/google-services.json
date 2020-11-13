@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "5241387538",
-    "firebase_url": "https://projectms-test.firebaseio.com",
-    "project_id": "projectms-test",
-    "storage_bucket": "projectms-test.appspot.com"
+    "project_number": "339533549828",
+    "firebase_url": "https://studentapp-85175.firebaseio.com",
+    "project_id": "studentapp-85175",
+    "storage_bucket": "studentapp-85175.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:5241387538:android:653f5261f5c637e51636cb",
+        "mobilesdk_app_id": "1:339533549828:android:b80ae861f9722030e50051",
         "android_client_info": {
           "package_name": "com.example.student_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "5241387538-u48cnindvn7oibp4l7dkguhkm2d96luv.apps.googleusercontent.com",
+          "client_id": "339533549828-al3v2302v78tqpsacduspdso24tu22ho.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.student_app",
@@ -23,20 +23,20 @@
           }
         },
         {
-          "client_id": "5241387538-6s6vusdgb7r6v7sh308v6d156m2kc076.apps.googleusercontent.com",
+          "client_id": "339533549828-taapojeha2ulpio0t53napptfq6404ci.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCtzzk6rL4iS0egOWlF6yWHTukENHJr8cY"
+          "current_key": "AIzaSyCnpyuaZVSXbQtjn1u0--REVl15axS56sU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "5241387538-6s6vusdgb7r6v7sh308v6d156m2kc076.apps.googleusercontent.com",
+              "client_id": "339533549828-taapojeha2ulpio0t53napptfq6404ci.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
