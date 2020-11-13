@@ -107,7 +107,7 @@ public class Select_Team extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (keylist.size() == 3) {
-                    String aaaa = UUID.randomUUID() + "" + System.currentTimeMillis();
+                    String aaaa = UUID.randomUUID().toString();
                     abc.child(keylist.get(0)).child("group_id").setValue(aaaa);
                     abc.child(keylist.get(1)).child("group_id").setValue(aaaa);
                     abc.child(keylist.get(2)).child("group_id").setValue(aaaa);

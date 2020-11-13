@@ -29,6 +29,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.UUID;
@@ -39,7 +40,7 @@ public class Home_Page extends AppCompatActivity
     private TextView namee;
     private TextView stuid;
     private TextView course;
-
+    private Button editt;
     private TextView gtitle,gmainarea,gsubarea,gfaculty;
 
     @Override
@@ -61,7 +62,7 @@ public class Home_Page extends AppCompatActivity
         namee=findViewById(R.id.home_name);
         stuid=findViewById(R.id.home_studentid);
         course=findViewById(R.id.home_course);
-
+        editt=findViewById(R.id.edit_group_details);
         gtitle=findViewById(R.id.home_title);
         gmainarea=findViewById(R.id.home_mainarea);
         gsubarea=findViewById(R.id.home_subarea);
@@ -96,6 +97,14 @@ public class Home_Page extends AppCompatActivity
 
 
        // String a =UUID.randomUUID()+""+System.currentTimeMillis(); to generate unique ids
+
+        editt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent editgroup=new Intent(Home_Page.this,Edit_Group.class);
+                startActivity(editgroup);
+            }
+        });
     }
 
     @Override

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Edit_Group">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/header_edit_group"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="55dp"
+        android:text="Edit Group Deatils"
+        android:textSize="18sp"
+        android:textStyle="bold"
+
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_below="@+id/edit_title_label"
+        android:layout_marginTop="10dp"
+        android:id="@+id/edit_title"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title :"
+        android:layout_below="@+id/header_edit_group"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/edit_title_label"
+        android:layout_marginTop="20dp"
+
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_below="@+id/edit_mainarea_label"
+        android:layout_marginTop="10dp"
+        android:id="@+id/edit_mainarea"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mainarea :"
+        android:layout_below="@+id/edit_title"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/edit_mainarea_label"
+        android:layout_marginTop="20dp"
+
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_below="@+id/edit_subarea_label"
+        android:layout_marginTop="10dp"
+        android:id="@+id/edit_subarea"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Subarea :"
+        android:layout_below="@+id/edit_mainarea"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/edit_subarea_label"
+        android:layout_marginTop="20dp"
+
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/edit_subarea"
+        android:layout_marginTop="20dp"
+        android:text="Update"
+        android:id="@+id/edit_group_button"
+
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/edit_group_button"
+        android:layout_marginTop="50dp"
+        android:text="Back"
+        android:id="@+id/edit_to_home_btn"
+
+        />
+
+</RelativeLayout>
