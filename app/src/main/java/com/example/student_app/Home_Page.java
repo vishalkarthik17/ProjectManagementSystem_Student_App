@@ -31,6 +31,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.UUID;
 
@@ -68,7 +69,7 @@ public class Home_Page extends AppCompatActivity
         gsubarea=findViewById(R.id.home_subarea);
         gfaculty=findViewById(R.id.home_facultyid);
 
-        DatabaseReference abc= FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference abc= FirebaseDatabase.getInstance().getReference();
         abc.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -101,8 +102,25 @@ public class Home_Page extends AppCompatActivity
         editt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent editgroup=new Intent(Home_Page.this,Edit_Group.class);
-                startActivity(editgroup);
+                abc.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if((dataSnapshot.child("Students").child(mAuth.getUid()).child("role").getValue().toString()).equals("Leader")){
+                            Intent editgroup=new Intent(Home_Page.this,Edit_Group.class);
+                            startActivity(editgroup);
+                        }
+                        else
+                        {
+                            Toast.makeText(Home_Page.this, "Only Leader Can Edit", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
             }
         });
     }
