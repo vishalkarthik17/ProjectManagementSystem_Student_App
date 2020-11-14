@@ -106,11 +106,11 @@ public class Select_Team extends AppCompatActivity {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (keylist.size() == 3) {
+                if (sal.size() == 3) {
                     String aaaa = UUID.randomUUID().toString();
-                    abc.child(keylist.get(0)).child("group_id").setValue(aaaa);
-                    abc.child(keylist.get(1)).child("group_id").setValue(aaaa);
-                    abc.child(keylist.get(2)).child("group_id").setValue(aaaa);
+                    abc.child(sal.get(0)).child("group_id").setValue(aaaa);
+                    abc.child(sal.get(1)).child("group_id").setValue(aaaa);
+                    abc.child(sal.get(2)).child("group_id").setValue(aaaa);
                     abc.child(mAuth.getUid()).child("group_id").setValue(aaaa);
                     grp=new GroupClasss();
                     String gid=aaaa;
