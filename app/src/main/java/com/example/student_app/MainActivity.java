@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Button Login_Button;
     private Button br;
-      FirebaseAuth mAuth;
+    FirebaseAuth mAuth;
+    private ProgressBar loading;
     private EditText userid,pword;
 
     @Override
@@ -34,10 +36,10 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-       mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
         Login_Button= findViewById(R.id.loginBtn);
-
+        loading=findViewById(R.id.progressBar);
         userid=findViewById(R.id.UID);
         pword=findViewById(R.id.PW);
 
@@ -46,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                loading.setVisibility(View.VISIBLE);
+                Login_Button.setVisibility(View.INVISIBLE);
                 Toast.makeText(MainActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
                 final String uids= userid.getText().toString().trim();
                 final String pws=pword.getText().toString().trim();
