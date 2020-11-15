@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                           abc.child("Students").child(mAuth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                               @Override
                               public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                  Toast.makeText(MainActivity.this, "Data Snap On Data Change", Toast.LENGTH_SHORT).show();
+                                  //Toast.makeText(MainActivity.this, "Data Snap On Data Change", Toast.LENGTH_SHORT).show();
                                   if((dataSnapshot.child("group_id").getValue().toString()).equals("NA"))
                                   {
                                       Toast.makeText(MainActivity.this, "Group not assigned", Toast.LENGTH_SHORT).show();
