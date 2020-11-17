@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -34,8 +35,12 @@ public class Select_Team extends AppCompatActivity {
     private ArrayList<String> keylist = new ArrayList<>();//contains uid of all users in the listview
     private ArrayList<String> al = new ArrayList<>(); //arraylist linked to adapter
     GroupClasss grp;
+    ReviewGroup rg1;
+    ReviewGroup rg2;
+    ReviewGroup rg3;
     private DatabaseReference abc;
     private DatabaseReference gg;
+    private DatabaseReference rr;
     FirebaseAuth mAuth;
 
     @Override
@@ -53,12 +58,13 @@ public class Select_Team extends AppCompatActivity {
         final ArrayAdapter<String> adp = new ArrayAdapter<String>(Select_Team.this, android.R.layout.simple_list_item_1, al);//List Adapter,with al set
         abc = FirebaseDatabase.getInstance().getReference().child("Students");
         gg = FirebaseDatabase.getInstance().getReference().child("Groups");
+        rr=FirebaseDatabase.getInstance().getReference().child("Review");
 
         lv = findViewById(R.id.studentlist);
         lv.setAdapter(adp); //set adapter to listview
         String summa;
 
-        final ArrayList<String> sal = new ArrayList<>(); //store the UID of selected item from the list
+
 
         //To display students with groupid NA in the list
         abc.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -83,7 +89,7 @@ public class Select_Team extends AppCompatActivity {
 
             }
         });
-
+        final ArrayList<String> sal = new ArrayList<>(); //store the UID of selected item from the list
         //OnClick of List
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -91,7 +97,7 @@ public class Select_Team extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 if (sal.size() < 3) {
-                    sal.add(keylist.get(position));
+                    sal.add(keylist.get((position)+sal.size()));
                     one[sal.size() - 1].setText(al.get(position));
                     al.remove(position);
                     adp.notifyDataSetChanged();
@@ -109,8 +115,14 @@ public class Select_Team extends AppCompatActivity {
                 if (sal.size() == 3) {
                     String aaaa = UUID.randomUUID().toString();
                     abc.child(sal.get(0)).child("group_id").setValue(aaaa);
+                    Log.e("sal0",sal.get(0));
+
                     abc.child(sal.get(1)).child("group_id").setValue(aaaa);
+                    Log.e("sal1",sal.get(1));
+
                     abc.child(sal.get(2)).child("group_id").setValue(aaaa);
+                    Log.e("sal2",sal.get(2));
+
                     abc.child(mAuth.getUid()).child("group_id").setValue(aaaa);
                     grp=new GroupClasss();
                     String gid=aaaa;
@@ -124,6 +136,38 @@ public class Select_Team extends AppCompatActivity {
                     grp.setMainarea(mainar);
                     grp.setSubarea(subar);
                     gg.child(aaaa).setValue(grp);//Here is the problem
+
+                    rg1=new ReviewGroup();
+                    rg2=new ReviewGroup();
+                    rg3=new ReviewGroup();
+
+
+                        String compkey=gid+"1";
+                        rg1.setReviewno("1");
+                        rg1.setMarks("NA");
+                        rg1.setRemark("NA");
+                        rg1.setReviewDate("NA");
+                        rg1.setGroupID(gid);
+                        rr.child(compkey).setValue(rg1);
+
+                    compkey=gid+"2";
+                    rg2.setReviewno("2");
+                    rg2.setMarks("NA");
+                    rg2.setRemark("NA");
+                    rg2.setReviewDate("NA");
+                    rg2.setGroupID(gid);
+                    rr.child(compkey).setValue(rg2);
+
+
+                    compkey=gid+"3";
+                    rg3.setReviewno("3");
+                    rg3.setMarks("NA");
+                    rg3.setRemark("NA");
+                    rg3.setReviewDate("NA");
+                    rg3.setGroupID(gid);
+                    rr.child(compkey).setValue(rg3);
+
+
                     Intent GoToHomeDa=new Intent(Select_Team.this,Home_Page.class);
                     startActivity(GoToHomeDa);
 
