@@ -171,7 +171,7 @@ public class Home_Page extends AppCompatActivity
 
 
         } else if (id == R.id.nav_viewMarks) {
-            Intent ToNextReview=new Intent(Home_Page.this,Next_Review.class);
+            Intent ToNextReview=new Intent(Home_Page.this,View_Marks.class);
             startActivity(ToNextReview);
 
         } else if (id == R.id.nav_reqRes) {

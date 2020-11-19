@@ -148,6 +148,7 @@ public class Select_Team extends AppCompatActivity {
                         rg1.setRemark("NA");
                         rg1.setReviewDate("NA");
                         rg1.setGroupID(gid);
+                        rg1.setInstructions("NA");
                         rr.child(compkey).setValue(rg1);
 
                     compkey=gid+"2";
@@ -156,6 +157,7 @@ public class Select_Team extends AppCompatActivity {
                     rg2.setRemark("NA");
                     rg2.setReviewDate("NA");
                     rg2.setGroupID(gid);
+                    rg2.setInstructions("NA");
                     rr.child(compkey).setValue(rg2);
 
 
@@ -165,6 +167,7 @@ public class Select_Team extends AppCompatActivity {
                     rg3.setRemark("NA");
                     rg3.setReviewDate("NA");
                     rg3.setGroupID(gid);
+                    rg3.setInstructions("NA");
                     rr.child(compkey).setValue(rg3);
 
 

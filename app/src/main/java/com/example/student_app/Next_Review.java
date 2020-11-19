@@ -20,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Next_Review extends AppCompatActivity {
     private Button bb;
-    private TextView m1,d1,r1,m2,d2,r2,m3,d3,r3;
+    private TextView i1,d1,i2,d2,i3,d3;
     private DatabaseReference aaa;
     private FirebaseAuth mAuth;
     @Override
@@ -32,17 +32,17 @@ public class Next_Review extends AppCompatActivity {
         getSupportActionBar().setTitle("Next Review");
 
 
-        m1=findViewById(R.id.reviewMark1);
+        i1=findViewById(R.id.insDispNR1);
         d1=findViewById(R.id.reviewDate1);
-        r1=findViewById(R.id.reviewRemarks1);
 
-        m2=findViewById(R.id.reviewMark2);
+
+        i2=findViewById(R.id.insDispNR2);
         d2=findViewById(R.id.reviewDate2);
-        r2=findViewById(R.id.reviewRemarks2);
 
-        m3=findViewById(R.id.reviewMark3);
+
+        i3=findViewById(R.id.insDispNR3);
         d3=findViewById(R.id.reviewDate3);
-        r3=findViewById(R.id.reviewRemarks3);
+
 
         mAuth = FirebaseAuth.getInstance();
         aaa = FirebaseDatabase.getInstance().getReference();
@@ -55,17 +55,17 @@ public class Next_Review extends AppCompatActivity {
                 String rr2=gid+"2";
                 String rr3=gid+"3";
 
-                m1.setText(snapshot.child("Review").child(rr1).child("marks").getValue().toString());
+                i1.setText(snapshot.child("Review").child(rr1).child("instructions").getValue().toString());
                 d1.setText(snapshot.child("Review").child(rr1).child("reviewDate").getValue().toString());
-                r1.setText(snapshot.child("Review").child(rr1).child("remark").getValue().toString());
 
-                m2.setText(snapshot.child("Review").child(rr2).child("marks").getValue().toString());
+
+                i2.setText(snapshot.child("Review").child(rr2).child("instructions").getValue().toString());
                 d2.setText(snapshot.child("Review").child(rr2).child("reviewDate").getValue().toString());
-                r2.setText(snapshot.child("Review").child(rr2).child("remark").getValue().toString());
 
-                m3.setText(snapshot.child("Review").child(rr3).child("marks").getValue().toString());
+
+                i3.setText(snapshot.child("Review").child(rr3).child("instructions").getValue().toString());
                 d3.setText(snapshot.child("Review").child(rr3).child("reviewDate").getValue().toString());
-                r3.setText(snapshot.child("Review").child(rr3).child("remark").getValue().toString());
+
 
             }
 

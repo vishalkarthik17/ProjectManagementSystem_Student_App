@@ -3,7 +3,15 @@ package com.example.student_app;
 public class ReviewGroup {
 
     private String reviewno,marks;
-    private String reviewDate,remark,groupID;
+    private String reviewDate,remark,groupID,instructions;
+
+    public String getInstructions() {
+        return instructions;
+    }
+
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
+    }
 
     public ReviewGroup() {
     }
