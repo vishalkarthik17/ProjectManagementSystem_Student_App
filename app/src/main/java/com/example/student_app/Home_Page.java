@@ -188,6 +188,12 @@ public class Home_Page extends AppCompatActivity
 
         }
 
+        else if (id == R.id.nav_viewApp2) {
+            Intent ToViewApp=new Intent(Home_Page.this,View_Approved_2.class);
+            startActivity(ToViewApp);
+
+        }
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

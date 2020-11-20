@@ -142,6 +142,7 @@ public class Select_Team extends AppCompatActivity {
                     rg3=new ReviewGroup();
 
 
+
                         String compkey=gid+"1";
                         rg1.setReviewno("1");
                         rg1.setMarks("NA");
@@ -169,6 +170,8 @@ public class Select_Team extends AppCompatActivity {
                     rg3.setGroupID(gid);
                     rg3.setInstructions("NA");
                     rr.child(compkey).setValue(rg3);
+
+
 
 
                     Intent GoToHomeDa=new Intent(Select_Team.this,Home_Page.class);

@@ -19,7 +19,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class View_Approved extends AppCompatActivity {
+public class View_Approved_2 extends AppCompatActivity {
+
     private Button bb;
     private ListView lv;
     private DatabaseReference abc;
@@ -28,11 +29,11 @@ public class View_Approved extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view__approved);
-        getSupportActionBar().setTitle("Resources Details");
+        setContentView(R.layout.activity_view__approved_2);
+        getSupportActionBar().setTitle("Budget Details");
 
         mAuth = FirebaseAuth.getInstance();
-        final ArrayAdapter<String> adp = new ArrayAdapter<String>(View_Approved.this, android.R.layout.simple_list_item_1, al);//List Adapter,with al set
+        final ArrayAdapter<String> adp = new ArrayAdapter<String>(View_Approved_2.this, android.R.layout.simple_list_item_1, al);//List Adapter,with al set
         lv = findViewById(R.id.ResList);
         lv.setAdapter(adp); //set adapter to listview
 
@@ -42,11 +43,11 @@ public class View_Approved extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String toDisplay="";
                 String ggg=snapshot.child("Students").child(mAuth.getUid()).child("group_id").getValue().toString();
-                for (DataSnapshot ds : snapshot.child("Resources").getChildren()){
+                for (DataSnapshot ds : snapshot.child("Budget").getChildren()){
                     toDisplay="";
                     if(ds.getKey().contains(ggg)){
-                        toDisplay="RESOURCE : "+ds.child("resource").getValue().toString();
-                        toDisplay+="\n"+"DESCRIPTION : "+ds.child("resDescription").getValue().toString();
+                        toDisplay="BUDGET : "+ds.child("budget").getValue().toString();
+                        toDisplay+="\n"+"DESCRIPTION : "+ds.child("budDescription").getValue().toString();
                         toDisplay+="\n"+"APPROVAL STATUS (Y/N) : "+ds.child("status").getValue().toString();
                         al.add(toDisplay);
                         adp.notifyDataSetChanged();
@@ -62,19 +63,20 @@ public class View_Approved extends AppCompatActivity {
             }
         });
 
-
         bb=findViewById(R.id.backBtn);
         bb.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent ToHome=new Intent(View_Approved.this,Home_Page.class);
-            startActivity(ToHome);
-        }
-    });
-}
+            @Override
+            public void onClick(View v) {
+                Intent ToHome=new Intent(View_Approved_2.this,Home_Page.class);
+                startActivity(ToHome);
+            }
+        });
+
+    }
+
     @Override
     public void onBackPressed() {
-        Intent ToHome=new Intent(View_Approved.this,Home_Page.class);
+        Intent ToHome=new Intent(View_Approved_2.this,Home_Page.class);
         startActivity(ToHome);
     }
 }
