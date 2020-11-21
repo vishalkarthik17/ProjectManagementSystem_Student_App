@@ -135,6 +135,7 @@ public class Select_Team extends AppCompatActivity {
                     grp.setTitle(title);
                     grp.setMainarea(mainar);
                     grp.setSubarea(subar);
+                    grp.setPanelAssign("NA");
                     gg.child(aaaa).setValue(grp);//Here is the problem
 
                     rg1=new ReviewGroup();
@@ -170,6 +171,17 @@ public class Select_Team extends AppCompatActivity {
                     rg3.setGroupID(gid);
                     rg3.setInstructions("NA");
                     rr.child(compkey).setValue(rg3);
+
+                    compkey=gid+"Final";
+                    rr.child(compkey).child("finalMark").setValue("NA");
+                    rr.child(compkey).child("remarkHead").setValue("NA");
+                    rr.child(compkey).child("remarkMember1").setValue("NA");
+                    rr.child(compkey).child("remarkMember2").setValue("NA");
+                    rr.child(compkey).child("reviewDate").setValue("NA");
+                    rr.child(compkey).child("reviewno").setValue("LAST");
+                    rr.child(compkey).child("instructions").setValue("NA");
+                    rr.child(compkey).child("groupID").setValue(gid);
+
 
 
 

@@ -32,7 +32,10 @@
             android:id="@+id/nav_viewApp2"
             android:icon="@drawable/ic_list_black_24dp"
             android:title="Budget Details" />
+
     </group>
+
+
 
 
 

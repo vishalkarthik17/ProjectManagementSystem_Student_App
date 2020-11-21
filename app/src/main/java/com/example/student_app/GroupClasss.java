@@ -1,13 +1,21 @@
 package com.example.student_app;
 
 public class GroupClasss {
-    private String groupid,facultyid,title,mainarea,subarea;
+    private String groupid,facultyid,title,mainarea,subarea,panelAssign;
 
     public GroupClasss() {
     }
 
     public String getGroupid() {
         return groupid;
+    }
+
+    public String getPanelAssign() {
+        return panelAssign;
+    }
+
+    public void setPanelAssign(String panelAssign) {
+        this.panelAssign = panelAssign;
     }
 
     public void setGroupid(String groupid) {
