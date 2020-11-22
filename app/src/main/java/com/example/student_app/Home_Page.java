@@ -193,6 +193,11 @@ public class Home_Page extends AppCompatActivity
             startActivity(ToViewApp);
 
         }
+        else if (id == R.id.nav_Final_Review_Details) {
+            Intent ToViewApp=new Intent(Home_Page.this,Final_Review_Details.class);
+            startActivity(ToViewApp);
+
+        }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

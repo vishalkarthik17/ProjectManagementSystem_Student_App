@@ -34,7 +34,19 @@
             android:title="Budget Details" />
 
     </group>
+<item android:title="Final Review" >
 
+    <menu>
+        <item
+            android:id="@+id/nav_Final_Review_Details"
+            android:icon="@drawable/ic_school_black_24dp"
+            android:title="Final Review Details" />
+
+
+
+    </menu>
+
+</item>
 
 
 
