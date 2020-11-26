@@ -97,6 +97,8 @@ public class Home_Page extends AppCompatActivity
         });
 
 
+
+
        // String a =UUID.randomUUID()+""+System.currentTimeMillis(); to generate unique ids
 
         editt.setOnClickListener(new View.OnClickListener() {

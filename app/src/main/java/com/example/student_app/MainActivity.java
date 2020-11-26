@@ -67,7 +67,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-                      if(task.isSuccessful()&& uids!="" && pws!="" ){
+                      if(task.isSuccessful()&& uids!="" && pws!="" )
+                      {
 
 
                           Toast.makeText(MainActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
@@ -113,6 +114,9 @@ public class MainActivity extends AppCompatActivity {
                       else
                       {
                           Toast.makeText(MainActivity.this, "Username/Password Dont Match!", Toast.LENGTH_SHORT).show();
+                          loading.setVisibility(View.INVISIBLE);
+                          Login_Button.setVisibility(View.VISIBLE);
+
                       }
                     }
                 });

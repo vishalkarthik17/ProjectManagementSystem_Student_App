@@ -21,6 +21,7 @@ public class View_Marks extends AppCompatActivity {
     private Button bb;
     private DatabaseReference aaa;
     private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
