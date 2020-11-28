@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private Button Login_Button;
     FirebaseAuth mAuth;
     private ProgressBar loading;
-    private EditText userid,pword;
+    private EditText userid, pword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,107 +37,84 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
-        Login_Button= findViewById(R.id.loginBtn);
-        loading=findViewById(R.id.progressBar);
-        userid=findViewById(R.id.UID);
-        pword=findViewById(R.id.PW);
+        Login_Button = findViewById(R.id.loginBtn);
+        loading = findViewById(R.id.progressBar);
+        userid = findViewById(R.id.UID);
+        pword = findViewById(R.id.PW);
 
-
+        //Onclick on Login Button
         Login_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                loading.setVisibility(View.VISIBLE);
+                loading.setVisibility(View.VISIBLE);//Loading wheel Visible
                 Login_Button.setVisibility(View.INVISIBLE);
                 Toast.makeText(MainActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
-                final String uids= userid.getText().toString().trim();
-                final String pws=pword.getText().toString().trim();
-                   if(TextUtils.isEmpty(uids)){
-                            userid.setError("Email is Required");
-                            return;
-                        }
-                        if(TextUtils.isEmpty(pws)){
-                            pword.setError("Password is Required");
-                            return;
-                        }
-
-                mAuth.signInWithEmailAndPassword(uids,pws).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                final String uids = userid.getText().toString().trim();
+                final String pws = pword.getText().toString().trim();
+                if (TextUtils.isEmpty(uids)) {
+                    userid.setError("Email is Required");
+                    return;
+                }
+                if (TextUtils.isEmpty(pws)) {
+                    pword.setError("Password is Required");
+                    return;
+                }
+                //This does Signin
+                mAuth.signInWithEmailAndPassword(uids, pws).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
 
-
-                      if(task.isSuccessful()&& uids!="" && pws!="" )
-                      {
+                        if (task.isSuccessful() && uids != "" && pws != "") {
 
 
-                          Toast.makeText(MainActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
-                          DatabaseReference abc= FirebaseDatabase.getInstance().getReference();
-                          abc.child("Students").child(mAuth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                              @Override
-                              public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                  //Toast.makeText(MainActivity.this, "Data Snap On Data Change", Toast.LENGTH_SHORT).show();
-                                  if((dataSnapshot.child("group_id").getValue().toString()).equals("NA"))
-                                  {
-                                      Toast.makeText(MainActivity.this, "Group not assigned", Toast.LENGTH_SHORT).show();
-                                      Intent loginToRole=new Intent(MainActivity.this,Role_Skill.class);
-                                      startActivity(loginToRole);
-                                      finish();
-                                  }
-                                  else
-                                  {
-                                      Toast.makeText(MainActivity.this, "group assigned", Toast.LENGTH_SHORT).show();
-                                      Intent loginToHome=new Intent(MainActivity.this,Home_Page.class);
-                                      startActivity(loginToHome);
-                                      finish();
+                            Toast.makeText(MainActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
+                            DatabaseReference abc = FirebaseDatabase.getInstance().getReference();
+                            abc.child("Students").child(mAuth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    //if groupid not assinged i.e groupid==NA? then go to role skill page
+                                    if ((dataSnapshot.child("group_id").getValue().toString()).equals("NA")) {
+                                        Toast.makeText(MainActivity.this, "Group not assigned", Toast.LENGTH_SHORT).show();
+                                        Intent loginToRole = new Intent(MainActivity.this, Role_Skill.class);
+                                        startActivity(loginToRole);
+                                        finish();
+                                    }
+                                    //else i.e group assigned so go to HomePage
+                                    else {
+                                        Toast.makeText(MainActivity.this, "group assigned", Toast.LENGTH_SHORT).show();
+                                        Intent loginToHome = new Intent(MainActivity.this, Home_Page.class);
+                                        startActivity(loginToHome);
+                                        finish();
 
-                                  }
-
-
-                              }
-
-                              @Override
-                              public void onCancelled(@NonNull DatabaseError databaseError) {
-                                  Toast.makeText(MainActivity.this, "Error da", Toast.LENGTH_SHORT).show();
-
-                              }
-                          });
+                                    }
 
 
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    Toast.makeText(MainActivity.this, "Error da", Toast.LENGTH_SHORT).show();
+
+                                }
+                            });
 
 
-                          /*Intent loginToHome=new Intent(MainActivity.this,Home_Page.class);
-                          startActivity(loginToHome);
-                          finish();*/
+                        }
+                        //else block executes if the sign in fails
+                        else {
+                            Toast.makeText(MainActivity.this, "Username/Password Dont Match!", Toast.LENGTH_SHORT).show();
+                            loading.setVisibility(View.INVISIBLE);
+                            Login_Button.setVisibility(View.VISIBLE);
 
-                      }
-                      else
-                      {
-                          Toast.makeText(MainActivity.this, "Username/Password Dont Match!", Toast.LENGTH_SHORT).show();
-                          loading.setVisibility(View.INVISIBLE);
-                          Login_Button.setVisibility(View.VISIBLE);
-
-                      }
+                        }
                     }
                 });
-
-               /* Intent loginToHome=new Intent(MainActivity.this,Home_Page.class);
-                startActivity(loginToHome);
-                finish();*/
-
 
 
             }
         });
 
-       /* br=findViewById(R.id.branch);
-        br.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent loginToHome=new Intent(MainActivity.this,Role_Skill.class);
-                startActivity(loginToHome);
-                finish();
-            }
-        });*/
     }
 }

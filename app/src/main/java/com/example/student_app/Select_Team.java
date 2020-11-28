@@ -62,7 +62,7 @@ public class Select_Team extends AppCompatActivity {
 
         lv = findViewById(R.id.studentlist);
         lv.setAdapter(adp); //set adapter to listview
-        String summa;
+
 
 
 
@@ -109,22 +109,18 @@ public class Select_Team extends AppCompatActivity {
             }
         });
 
+        //Onclick for Proceed Button
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (sal.size() == 3) {
-                    String aaaa = UUID.randomUUID().toString();
+                    String aaaa = UUID.randomUUID().toString();//Random unique String generate
+                    //to assign the groupid od student in the team as the unique string
                     abc.child(sal.get(0)).child("group_id").setValue(aaaa);
-                    Log.e("sal0",sal.get(0));
-
                     abc.child(sal.get(1)).child("group_id").setValue(aaaa);
-                    Log.e("sal1",sal.get(1));
-
                     abc.child(sal.get(2)).child("group_id").setValue(aaaa);
-                    Log.e("sal2",sal.get(2));
-
                     abc.child(mAuth.getUid()).child("group_id").setValue(aaaa);
-                    grp=new GroupClasss();
+                    grp=new GroupClasss();//class that contains the keys of group table as thier private members.
                     String gid=aaaa;
                     String faculid="NA";
                     String title="NA";
@@ -136,14 +132,16 @@ public class Select_Team extends AppCompatActivity {
                     grp.setMainarea(mainar);
                     grp.setSubarea(subar);
                     grp.setPanelAssign("NA");
-                    gg.child(aaaa).setValue(grp);//Here is the problem
+                    gg.child(aaaa).setValue(grp);
 
+                    //Reivew Group is the class that contains the review table keys as data members
                     rg1=new ReviewGroup();
                     rg2=new ReviewGroup();
                     rg3=new ReviewGroup();
 
 
-
+                        //when group is created , 4 review tuples are created in the review table when group is formed
+                        //The key is "groupid_uniqueString"+"reviewNo"
                         String compkey=gid+"1";
                         rg1.setReviewno("1");
                         rg1.setMarks("NA");
@@ -186,6 +184,8 @@ public class Select_Team extends AppCompatActivity {
 
 
 
+
+                    //Will take to Home
                     Intent GoToHomeDa=new Intent(Select_Team.this,Home_Page.class);
                     startActivity(GoToHomeDa);
 
@@ -199,7 +199,7 @@ public class Select_Team extends AppCompatActivity {
         });
 
 
-        //reselec.findViewById(R.id.reselect);
+
         reselec.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

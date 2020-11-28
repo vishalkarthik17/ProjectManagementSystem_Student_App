@@ -43,15 +43,14 @@ public class Home_Page extends AppCompatActivity
     private TextView course;
     private Button editt;
     private TextView gtitle,gmainarea,gsubarea,gfaculty;
-
+    private FirebaseAuth mAuth;
+    private DatabaseReference abc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home__page);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        final FirebaseAuth mAuth=FirebaseAuth.getInstance();
-       // Log.e("Vishal",mAuth.getUid());
-
+        mAuth=FirebaseAuth.getInstance();
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -69,15 +68,17 @@ public class Home_Page extends AppCompatActivity
         gsubarea=findViewById(R.id.home_subarea);
         gfaculty=findViewById(R.id.home_facultyid);
 
-        final DatabaseReference abc= FirebaseDatabase.getInstance().getReference();
+        abc= FirebaseDatabase.getInstance().getReference();
         abc.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //Display the Student Details from db
                 namee.setText(dataSnapshot.child("Students").child(mAuth.getUid()).child("student_name").getValue().toString());
                 stuid.setText(dataSnapshot.child("Students").child(mAuth.getUid()).child("student_id").getValue().toString());
                 course.setText(dataSnapshot.child("Students").child(mAuth.getUid()).child("course").getValue().toString());
 
 
+                //if students group id is not NA then display the groupid from db to TextViews
                 if( !((dataSnapshot.child("Students").child(mAuth.getUid()).child("group_id").getValue().toString()).equals("NA")) )
                 {
                     String find=dataSnapshot.child("Students").child(mAuth.getUid()).child("group_id").getValue().toString();
@@ -99,14 +100,15 @@ public class Home_Page extends AppCompatActivity
 
 
 
-       // String a =UUID.randomUUID()+""+System.currentTimeMillis(); to generate unique ids
 
+        //Edit Group Details Button OnClick
         editt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 abc.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        //Only Accisible to Group Leader
                         if((dataSnapshot.child("Students").child(mAuth.getUid()).child("role").getValue().toString()).equals("Leader")){
                             Intent editgroup=new Intent(Home_Page.this,Edit_Group.class);
                             startActivity(editgroup);
@@ -159,6 +161,9 @@ public class Home_Page extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+
+
+    //Onclick on the Drawer elements
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -177,12 +182,46 @@ public class Home_Page extends AppCompatActivity
             startActivity(ToNextReview);
 
         } else if (id == R.id.nav_reqRes) {
-            Intent ToRequestResources=new Intent(Home_Page.this,Request_Resources.class);
-            startActivity(ToRequestResources);
+            //ToCheck Whether Leader or Member
+            abc.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if((snapshot.child("Students").child(mAuth.getUid()).child("role").getValue().toString()).equals("Leader")){
+                        Intent ToRequestResources=new Intent(Home_Page.this,Request_Resources.class);
+                        startActivity(ToRequestResources);
+                    }
+                    else{
+                        Toast.makeText(Home_Page.this, "Only Leader Can Request", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
 
         } else if (id == R.id.nav_reqBud) {
-            Intent ToRequestBudget=new Intent(Home_Page.this,Request_Budget.class);
-            startActivity(ToRequestBudget);
+            //ToCheck Whether Leader or Member
+            abc.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if((snapshot.child("Students").child(mAuth.getUid()).child("role").getValue().toString()).equals("Leader")){
+                        Intent ToRequestBudget=new Intent(Home_Page.this,Request_Budget.class);
+                        startActivity(ToRequestBudget);
+                    }
+                    else{
+                        Toast.makeText(Home_Page.this, "Only Leader Can Request", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
 
         } else if (id == R.id.nav_viewApp) {
             Intent ToViewApp=new Intent(Home_Page.this,View_Approved.class);
@@ -200,6 +239,13 @@ public class Home_Page extends AppCompatActivity
             startActivity(ToViewApp);
 
         }
+        else if (id == R.id.SignOut) {
+            mAuth.signOut();
+            Intent ToViewApp=new Intent(Home_Page.this,MainActivity.class);
+            startActivity(ToViewApp);
+
+        }
+
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

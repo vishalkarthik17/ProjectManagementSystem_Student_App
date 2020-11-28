@@ -28,18 +28,20 @@ public class Role_Skill extends AppCompatActivity implements AdapterView.OnItemS
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_role__skill);
-        getSupportActionBar().setTitle("Enter Role");
+        getSupportActionBar().setTitle("Enter Role"); //Title bar text set
 
         sp=findViewById(R.id.role);
         mAuth=FirebaseAuth.getInstance();
 
+        //Adapter to get array items from values.xml to here and print as dropdown in spinner
         ArrayAdapter<CharSequence> adp = ArrayAdapter.createFromResource(this,R.array.role,android.R.layout.simple_spinner_item);
         adp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sp.setAdapter(adp);
+        sp.setAdapter(adp);//assigning adapter to spinner
         sp.setOnItemSelectedListener(this);
 
         nxt=findViewById(R.id.roleNextBtn);
         et= findViewById(R.id.Expertise);
+        //Onclick on next button
         nxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,6 +53,7 @@ public class Role_Skill extends AppCompatActivity implements AdapterView.OnItemS
                     Toast.makeText(Role_Skill.this, "Empty Credentials", Toast.LENGTH_SHORT).show();
                 }
                 else {
+                    //if leader take user to select teams page , else take user to Home page
                     if (choice.equals("Leader")) {
                         abc.child("role").setValue("Leader");
                         abc.child("skill").setValue(txt_exp);
@@ -74,7 +77,7 @@ public class Role_Skill extends AppCompatActivity implements AdapterView.OnItemS
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-         choice = parent.getItemAtPosition(position).toString();
+         choice = parent.getItemAtPosition(position).toString();//if item is selected from spinner , the value gets stored into choice
         Toast.makeText(getApplicationContext(),choice,Toast.LENGTH_LONG).show();
     }
 
